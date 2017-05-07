@@ -1,6 +1,8 @@
+language: bash
+sudo: required
+
 env:
-  - UBUNTU_VERSION=zesty
-  - LIVE_USER=fabriqueurs
+  - UBUNTU_VERSION=zesty LIVE_USER=fabriqueurs
 
 before_install:
   - sudo apt-get update -qq
