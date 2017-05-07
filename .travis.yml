@@ -9,4 +9,4 @@ before_install:
   - sudo apt-get install -qq debootstrap xorriso squashfs-tools syslinux
 
 install:
-  - ./run.sh
+  - sudo ./run.sh
