@@ -1,6 +1,4 @@
-ROOT_PASSWORD=$1      # --> Mot de passe root (ex: s3cr3t)
-LIVE_USER=$2          # --> Nom de l'utilisateur principal (ex: fabriqueurs)
-LIVE_USER_PASSWORD=$3 # --> Mot de passe de l'utilisateur principal (ex: s3cr3t2)
+LIVE_USER=$1          # --> Nom de l'utilisateur principal (ex: fabriqueurs)
 
 mount none -t proc /proc
 mount none -t sysfs /sys
@@ -78,23 +76,14 @@ EOF
 dpkg-reconfigure locales
 dpkg-reconfigure keyboard-configuration
 
-# Changement du mot de passe administrateur
-passwd <<EOF
-$ROOT_PASSWORD
-$ROOT_PASSWORD
-EOF
-
 # Création de l'utilisateur non privilégié et d'un group a son nom
 #  - sudo: Permet d'utiliser la commande sudo pour des tâches administratives
 #  - dialout: Nécessaire pour la communication Arduino et Repetier
 useradd $LIVE_USER --create-home 
 usermod -a -G dialout,sudo $LIVE_USER
 
-# Changement du mot de passe utilisateur non privilégié
-passwd <<EOF
-$LIVE_USER_PASSWORD
-$LIVE_USER_PASSWORD
-EOF
+# Autorisation sudo sans mdp (il n'y a pas de mdp sur le système)
+sed -i 's/%sudo\s*ALL=(ALL:ALL)\s*ALL/%sudo ALL=(ALL:ALL) NOPASSWD: ALL/' /etc/sudoers
 
 # Activation de la connexion automatique au démarrage
 cat > /etc/lightdm/lightdm.conf.d/01_autologin.conf <<EOF

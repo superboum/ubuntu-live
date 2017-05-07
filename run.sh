@@ -1,8 +1,8 @@
-UBUNTU_VERSION=zesty
-ROOT_PASSWORD=test
-LIVE_USER=toto
-LIVE_USER_PASSWORD=toto
+#!/bin/bash
+
+[ -z $UBUNTU_VERSION ]     && read -p "Entrez la version d'Ubuntu -> " UBUNTU_VERSION
+[ -z $LIVE_USER ]          && read -p "Entrez le nom de l'utilisateur désiré -> " LIVE_USER
 
 ./scripts/create_live_filesystem.sh $UBUNTU_VERSION
-chroot ./build/live_filesystem bash -c "/usr/local/sbin/configure_system.sh $ROOT_PASSWORD $LIVE_USER $LIVE_USER_PASSWORD"
+chroot ./build/live_filesystem bash -c "/usr/local/sbin/configure_system.sh $LIVE_USER"
 ./scripts/create_iso_filesystem.sh
