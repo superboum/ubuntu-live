@@ -6,7 +6,7 @@ env:
 
 before_install:
   - sudo apt-get update -qq
-  - sudo apt-get install -qq debootstrap chroot xorriso squashfs-tools syslinux
+  - sudo apt-get install -qq debootstrap xorriso squashfs-tools syslinux
 
 install:
   - ./run.sh
