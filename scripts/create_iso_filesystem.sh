@@ -18,14 +18,23 @@ mksquashfs \
 # Ajout du chargeur d'amorçage BIOS. On utilise syslinux.
 # Obligé de mettre une condition en fonction de si l'image est générée depuis
 # un système Fedora ou Debian/Ubuntu
+lsb_release -a
 ISOHYBRID_MBR=""
 if (( $(lsb_release -s -i) == "Fedora" )); then
+  # Fedora
   ISOHYBRID_MBR="/usr/share/syslinux/isohdpfx.bin"
   cp /usr/share/syslinux/isolinux.bin  build/iso_filesystem/isolinux/
   cp /usr/share/syslinux/menu.c32      build/iso_filesystem/isolinux/
   cp /usr/share/syslinux/ldlinux.c32   build/iso_filesystem/isolinux/
   cp /usr/share/syslinux/libutil.c32   build/iso_filesystem/isolinux/
-else # Debian ou Ubuntu
+elif (( $(lsb_release -s -i) == "Ubuntu" && $(lsb_release -s -c) == "trusty" )); then
+  # Ubuntu Trusty (vieille version utilisée par Travis)
+  ISOHYBRID_MBR="/usr/lib/syslinux/isohdpfx.bin"
+  cp /usr/lib/syslinux/isolinux.bin  build/iso_filesystem/isolinux/
+  cp /usr/lib/syslinux/menu.c32      build/iso_filesystem/isolinux/
+  cp /usr/lib/syslinux/ldlinux.c32   build/iso_filesystem/isolinux/
+else
+  # Debian ou Ubuntu actuel. Nécessite les paquets syslinux et isolinux
   ISOHYBRID_MBR="/usr/lib/ISOLINUX/isohdpfx.bin"
   cp /usr/lib/ISOLINUX/isolinux.bin               build/iso_filesystem/isolinux/
   cp /usr/lib/syslinux/modules/bios/menu.c32      build/iso_filesystem/isolinux/
