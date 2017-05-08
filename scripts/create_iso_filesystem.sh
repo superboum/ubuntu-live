@@ -12,7 +12,8 @@ mksquashfs \
   build/live_filesystem \
   build/iso_filesystem/live/filesystem.squashfs \
   -comp xz \
-  -e boot
+  -e boot \
+  -noappend 
 
 # Ajout du chargeur d'amorçage BIOS. On utilise syslinux.
 # Obligé de mettre une condition en fonction de si l'image est générée depuis
@@ -52,7 +53,7 @@ EOF
 # Pour l'instant c'est un "hack", on a copié collé les dossiers à la main
 # depuis l'ISO d'ubuntu
 # @TODO Ajouter un gestionnaire d'amorçage correctement
-cp third_party/{.disk,boot,EFI} build/iso_filesystem/
+cp -r third_party/{.disk,boot,EFI} build/iso_filesystem/
 
 # Création de l'image
 # @TODO Expliquer les options de xorriso
