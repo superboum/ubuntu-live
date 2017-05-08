@@ -11,19 +11,12 @@ mount none -t devpts /dev/pts
 
 sed -i "s/main$/main universe multiverse restricted/" /etc/apt/sources.list
 
-# On ajoute des paquets sur une liste noire car ils posent problème avec notre chroot
-cat > /etc/apt/preferences.d/10_blacklist <<EOF
-Package: blueman
-Pin: origin ""
-Pin-Priority: -1
-EOF
-
 # Installation des logiciels via APT
 export DEBIAN_FRONTEND=noninteractive
-apt update
-apt dist-upgrade -y
+apt-get update
+apt-get dist-upgrade -y
 
-apt install -y \
+apt-get install -y \
   linux-generic \
   ubuntu-minimal \
   xubuntu-desktop \
@@ -45,6 +38,9 @@ apt install -y \
   git \
   kicad \
   gimp \
+
+# Le paquet blueman est buggué
+apt-get purge -y blueman
 
 # Configuration de la langue et du clavier
 debconf-set-selections <<EOF
@@ -96,7 +92,7 @@ EOF
 git clone --depth 1 https://github.com/jmoenig/Snap--Build-Your-Own-Blocks /opt/snap
 
 # Téléchargement et installation de Repetier
-apt install -y mono-reference-assemblies-2.0 mono-devel
+apt-get install -y mono-reference-assemblies-2.0 mono-devel
 rm -rf /opt/repetier
 wget http://download.repetier.com/files/host/linux/repetierHostLinux_2_0_0.tgz -O /tmp/repetier.tgz
 tar xzf /tmp/repetier.tgz --directory /opt/
@@ -108,5 +104,5 @@ rm -r /tmp/repetier.tgz
 
 # Nettoie le système de fichier
 rm -f /var/lib/dbus/machine-id
-apt clean
-umount /proc /sys /dev/pts
+apt-get clean
+umount -l /proc /sys /dev/pts
