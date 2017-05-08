@@ -105,4 +105,6 @@ rm -r /tmp/repetier.tgz
 # Nettoie le système de fichier
 rm -f /var/lib/dbus/machine-id
 apt-get clean
-umount -l /proc /sys /dev/pts
+umount -l /proc
+umount -l /sys
+umount -l /dev/pts

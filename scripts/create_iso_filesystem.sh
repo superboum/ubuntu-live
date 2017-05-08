@@ -1,5 +1,13 @@
 #!/bin/bash
 
+# Assure que tout est bien démonté
+umount -l build/live_filesystem/proc
+umount -l build/live_filesystem/dev/pts
+umount -l build/live_filesystem/sys
+rm -r build/live_filesystem/sys/*
+rm -r build/live_filesystem/dev/pts/*
+rm -r build/live_filesystem/proc/*
+
 # Créer le dossier pour la clé USB
 mkdir -p build/iso_filesystem/{live,isolinux}
 
@@ -13,7 +21,8 @@ mksquashfs \
   build/iso_filesystem/live/filesystem.squashfs \
   -comp xz \
   -e boot \
-  -noappend 
+  -noappend \
+  -no-progress
 
 # Ajout du chargeur d'amorçage BIOS. On utilise syslinux.
 # Obligé de mettre une condition en fonction de si l'image est générée depuis
