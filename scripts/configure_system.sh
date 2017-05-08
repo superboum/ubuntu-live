@@ -38,6 +38,7 @@ apt-get install -y \
   git \
   kicad \
   gimp \
+  > /dev/null # Trop de logs pour Travis
 
 # Le paquet blueman est buggué
 apt-get purge -y blueman
@@ -97,7 +98,7 @@ rm -rf /opt/repetier
 wget http://download.repetier.com/files/host/linux/repetierHostLinux_2_0_0.tgz -O /tmp/repetier.tgz
 tar xzf /tmp/repetier.tgz --directory /opt/
 rm -r /tmp/repetier.tgz
-/opt/RepetierHost/installDependenciesDebian
+/opt/RepetierHost/installDependenciesDebian > /dev/null # trop de logs pour Travis
 
 # Création de raccourcis
 # @TODO

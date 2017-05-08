@@ -6,7 +6,7 @@ UBUNTU_VERSION=$1     # --> Version Ubuntu (ex: zesty)
 mkdir -p build/
 
 # Création du système de fichier de base dans le dossier build
-debootstrap --arch=amd64 $UBUNTU_VERSION build/live_filesystem/
+debootstrap --arch=amd64 $UBUNTU_VERSION build/live_filesystem/ > /dev/null # Trop de logs pour Travis
 
 # Copie le script de configuration dans le système de fichier
 cp `dirname $0`/configure_system.sh ./build/live_filesystem/usr/local/sbin

@@ -22,7 +22,7 @@ mksquashfs \
   -comp xz \
   -e boot \
   -noappend \
-  -no-progress
+  -no-progress > /dev/null # Trop de logs pour Travis
 
 # Ajout du chargeur d'amorçage BIOS. On utilise syslinux.
 # Obligé de mettre une condition en fonction de si l'image est générée depuis
@@ -85,4 +85,5 @@ xorriso -as mkisofs \
   -e boot/grub/efi.img  \
   -no-emul-boot \
   -isohybrid-gpt-basdat \
-  ./build/iso_filesystem
+  ./build/iso_filesystem \
+  > /dev/null # Trop de logs pour Travis
