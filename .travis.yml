@@ -10,5 +10,5 @@ before_install:
 
 install:
   - sudo ./scripts/create_live_filesystem.sh $UBUNTU_VERSION
-  - sudo chroot ./build/live_filesystem bash -c "/usr/local/sbin/configure_system.sh $LIVE_USER"
+  - sudo ./scripts/launch_configure_system.sh $LIVE_USER
   - sudo ./scripts/create_iso_filesystem.sh

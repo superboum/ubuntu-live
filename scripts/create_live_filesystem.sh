@@ -9,7 +9,7 @@ mkdir -p build/
 debootstrap --arch=amd64 $UBUNTU_VERSION build/live_filesystem/ > /dev/null # Trop de logs pour Travis
 
 # Copie le script de configuration dans le système de fichier
-cp `dirname $0`/configure_system.sh ./build/live_filesystem/usr/local/sbin
+cp `dirname $0`/../embed/configure_system.sh ./build/live_filesystem/usr/local/sbin
 
 # Bind /dev sur le futur chroot
 #mount --bind /dev build/live_filesystem/dev

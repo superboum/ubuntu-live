@@ -4,5 +4,5 @@
 [ -z $LIVE_USER ]          && read -p "Entrez le nom de l'utilisateur désiré -> " LIVE_USER
 
 ./scripts/create_live_filesystem.sh $UBUNTU_VERSION
-chroot ./build/live_filesystem bash -c "/usr/local/sbin/configure_system.sh $LIVE_USER"
+./scripts/launch_configure_system.sh $LIVE_USER
 ./scripts/create_iso_filesystem.sh
