@@ -109,3 +109,5 @@ apt-get clean
 umount -l /proc
 umount -l /sys
 umount -l /dev/pts
+
+exit 0
