@@ -86,6 +86,5 @@ xorriso -as mkisofs \
   -eltorito-alt-boot \
   -e boot/grub/efi.img  \
   -no-emul-boot \
-  -isohybrid-gpt-basdat \
   ./build/iso_filesystem \
   > /dev/null # Trop de logs pour Travis
