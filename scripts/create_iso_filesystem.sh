@@ -15,6 +15,7 @@ mkdir -p build/iso_filesystem/{live,isolinux}
 cp build/live_filesystem/boot/vmlinuz* build/iso_filesystem/live/vmlinuz
 cp build/live_filesystem/initrd* build/iso_filesystem/live/initrd
 
+bash -c "while true; do sleep 300; echo Création en cours de filesystem.squashfs...; done" &
 # Compression de l'arborescence live dans un fichier squashfs
 mksquashfs \
   build/live_filesystem \
@@ -23,6 +24,7 @@ mksquashfs \
   -e boot \
   -noappend \
   -no-progress > /dev/null # Trop de logs pour Travis
+kill $!
 
 # Ajout du chargeur d'amorçage BIOS. On utilise syslinux.
 # Obligé de mettre une condition en fonction de si l'image est générée depuis
